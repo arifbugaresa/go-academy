@@ -4,6 +4,7 @@ import (
 	"github.com/labstack/echo/v4"
 	"go-academy/api/v1/common"
 	"go-academy/api/v1/request"
+	"go-academy/api/v1/response"
 	"go-academy/business/lesson_type"
 )
 
@@ -33,5 +34,15 @@ func (controller *Controller) InsertLessonType(context echo.Context) error {
 		return context.JSON(common.NewErrorBusinessResponse(err))
 	}
 
-	return context.JSON(common.NewSuccessResponseWithoutData())
+	return context.JSON(common.NewSuccessResponseWithoutData(common.SUCCESS_INSERT_DATA))
+}
+
+func (controller *Controller) GetListLessonType(context echo.Context) (err error) {
+	var listLessonType []response.GetListLessonType
+	listLessonType, err = controller.service.GetListLessonType()
+	if err != nil {
+		return
+	}
+
+	return context.JSON(common.NewSuccessResponse(common.SUCCESS_GET_LIST_DATA, listLessonType))
 }

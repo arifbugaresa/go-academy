@@ -12,18 +12,18 @@ type SuccessResponse struct {
 	Data    interface{}         `json:"data"`
 }
 
-func NewSuccessResponse(data interface{}) (int, SuccessResponse) {
+func NewSuccessResponse(message string, data interface{}) (int, SuccessResponse) {
 	return http.StatusOK, SuccessResponse{
 		Code:    Success,
-		Message: "Success",
+		Message: message,
 		Data:    data,
 	}
 }
 
-func NewSuccessResponseWithoutData() (int, SuccessResponse) {
+func NewSuccessResponseWithoutData(message string) (int, SuccessResponse) {
 	return http.StatusOK, SuccessResponse{
 		Code:    Success,
-		Message: "Success",
+		Message: message,
 		Data:    nil,
 	}
 }

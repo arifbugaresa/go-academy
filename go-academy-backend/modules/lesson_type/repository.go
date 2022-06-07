@@ -18,3 +18,10 @@ func NewRepository(db *gorm.DB) *repository {
 func (r *repository) InsertLessonType(lessonType lesson_type.LessonType) error {
 	return r.db.Create(&lessonType).Error
 }
+
+func (r *repository) GetListLessonType() ([]lesson_type.LessonType, error) {
+	var listLessonType []lesson_type.LessonType
+	err := r.db.Find(&listLessonType).Error
+
+	return listLessonType, err
+}

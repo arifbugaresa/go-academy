@@ -18,5 +18,6 @@ func Controller(
 	// lesson type
 	lessonType := e.Group("v1/lesson-type")
 	lessonType.POST("", lessonTypeControler.InsertLessonType)
+	lessonType.GET("", lessonTypeControler.GetListLessonType)
 
 }
