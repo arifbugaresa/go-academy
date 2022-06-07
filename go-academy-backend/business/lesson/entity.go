@@ -7,6 +7,7 @@ type Lesson struct {
 	Name          string
 	Desc          string
 	LessonGroupID int
+	Url           string
 	Status        bool
 	Priority      float64
 	CreatedAt     time.Time `sql:"DEFAULT:'current_timestamp'"`
