@@ -25,3 +25,22 @@ func (r *repository) GetListLessonType() ([]lesson_type.LessonType, error) {
 
 	return listLessonType, err
 }
+
+func (r *repository) UpdateLessonType(lt lesson_type.LessonType) error {
+	return r.db.Model(&lt).Updates(
+		lesson_type.LessonType{
+			Name:         lt.Name,
+			UpdatedAt:    lt.UpdatedAt,
+			LastAccessed: lt.LastAccessed,
+			Desc:         lt.Desc,
+		},
+	).Error
+}
+
+func (r *repository) FindLessonTypeByID(id int) (lesson_type.LessonType, error) {
+	var lessonType lesson_type.LessonType
+
+	err := r.db.Find(&lessonType, id).Error
+
+	return lessonType, err
+}

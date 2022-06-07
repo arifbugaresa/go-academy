@@ -6,11 +6,14 @@ import (
 )
 
 type Service interface {
-	InsertLessonType(request request.InsertLessonType) error
+	InsertLessonType(request.InsertLessonType) error
 	GetListLessonType() ([]response.GetListLessonType, error)
+	UpdateLessonType(request.UpdateLessonType) error
 }
 
 type Repository interface {
-	InsertLessonType(lessonType LessonType) error
+	InsertLessonType(LessonType) error
 	GetListLessonType() ([]LessonType, error)
+	UpdateLessonType(LessonType) error
+	FindLessonTypeByID(int) (LessonType, error)
 }

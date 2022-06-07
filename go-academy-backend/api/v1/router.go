@@ -19,5 +19,6 @@ func Controller(
 	lessonType := e.Group("v1/lesson-type")
 	lessonType.POST("", lessonTypeControler.InsertLessonType)
 	lessonType.GET("", lessonTypeControler.GetListLessonType)
+	lessonType.PUT("/:id", lessonTypeControler.UpdateLessonType)
 
 }

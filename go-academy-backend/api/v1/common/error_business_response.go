@@ -1,6 +1,7 @@
 package common
 
 import (
+	"go-academy/business"
 	"net/http"
 )
 
@@ -29,8 +30,8 @@ func errorMapping(err error) (int, BusinessResponse) {
 	switch err {
 	default:
 		return newInternalServerErrorResponse()
-	//case business.ErrInvalidBody:
-	//	return newValidationResponse(err.Error())
+	case business.ErrDataNotFound:
+		return newNotFoundResponse()
 	}
 }
 

@@ -9,11 +9,26 @@ type InsertLessonType struct {
 
 func (dto InsertLessonType) MandatoryValidation() (dataFailed string, error bool) {
 
+	if common.IsStringEmpty(dto.Name) {
+		return "name", true
+	}
+
+	return
+}
+
+type UpdateLessonType struct {
+	ID   int    `json:"id"`
+	Name string `json:"name"`
+	Desc string `json:"desc"`
+}
+
+func (dto UpdateLessonType) MandatoryValidation() (dataFailed string, error bool) {
+
 	if common.IsStringEmpty(dto.Name) && common.IsStringEmpty(dto.Desc) {
 		return "request", true
 	}
 
-	if common.IsStringEmpty(dto.Name){
+	if common.IsStringEmpty(dto.Name) {
 		return "name", true
 	}
 

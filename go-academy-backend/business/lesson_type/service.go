@@ -3,6 +3,7 @@ package lesson_type
 import (
 	"go-academy/api/v1/request"
 	"go-academy/api/v1/response"
+	"go-academy/business"
 )
 
 type service struct {
@@ -71,4 +72,43 @@ func (s *service) convertModelToDTOForGetList(listLessonTypeDB []LessonType) (li
 	}
 
 	return
+}
+
+/*
+UPDATE LESSON TYPE
+*/
+
+func (s *service) UpdateLessonType(request request.UpdateLessonType) (err error) {
+
+	// find data by id
+	lessonTypeOnDB, err := s.FindLessonTypeByID(request.ID)
+	if err != nil {
+		return business.ErrInvalidBody
+	}
+
+	if lessonTypeOnDB.ID < 1 {
+		return business.ErrDataNotFound
+	}
+
+	lessonTypeModel := s.convertDTOToModelForUpdate(request)
+
+	return s.repository.UpdateLessonType(lessonTypeModel)
+}
+
+func (s *service) convertDTOToModelForUpdate(request request.UpdateLessonType) (lessonType LessonType) {
+	return LessonType{
+		ID:        request.ID,
+		Name:      request.Name,
+		Desc:      request.Desc,
+		CreatedBy: "",
+		UpdatedBy: "",
+	}
+}
+
+/*
+FIND LESSON TYPE BY ID
+*/
+
+func (s *service) FindLessonTypeByID(id int) (LessonType, error) {
+	return s.repository.FindLessonTypeByID(id)
 }
