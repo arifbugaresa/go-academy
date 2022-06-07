@@ -8,6 +8,7 @@ type Lesson struct {
 	Desc          string
 	LessonGroupID int
 	Status        bool
+	Priority      float64
 	CreatedAt     time.Time `sql:"DEFAULT:'current_timestamp'"`
 	UpdatedAt     time.Time `sql:"DEFAULT:'current_timestamp'"`
 	CreatedBy     string

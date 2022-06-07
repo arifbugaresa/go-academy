@@ -61,9 +61,10 @@ func (s *service) GetListLessonType() (listLessonType []response.GetListLessonTy
 func (s *service) convertModelToDTOForGetList(listLessonTypeDB []LessonType) (listLessonTypeResponse []response.GetListLessonType) {
 	for _, lessonType := range listLessonTypeDB {
 		data := response.GetListLessonType{
-			ID:   lessonType.ID,
-			Name: lessonType.Name,
-			Desc: lessonType.Desc,
+			ID:           lessonType.ID,
+			Name:         lessonType.Name,
+			Desc:         lessonType.Desc,
+			LastAccessed: lessonType.LastAccessed,
 		}
 
 		listLessonTypeResponse = append(listLessonTypeResponse, data)
