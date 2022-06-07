@@ -2,12 +2,14 @@ package api
 
 import (
 	"github.com/labstack/echo/v4"
+	"go-academy/api/v1/lesson_group"
 	"go-academy/api/v1/lesson_type"
 )
 
 func Controller(
 	e *echo.Echo,
-	lessonTypeControler *lesson_type.Controller,
+	lessonTypeController *lesson_type.Controller,
+	lessonGroupController *lesson_group.Controller,
 ) {
 
 	// helper
@@ -17,9 +19,13 @@ func Controller(
 
 	// lesson type
 	lessonType := e.Group("v1/lesson-type")
-	lessonType.POST("", lessonTypeControler.InsertLessonType)
-	lessonType.GET("", lessonTypeControler.GetListLessonType)
-	lessonType.PUT("/:id", lessonTypeControler.UpdateLessonType)
-	lessonType.DELETE("/:id", lessonTypeControler.DeleteLessonTypeByID)
+	lessonType.POST("", lessonTypeController.InsertLessonType)
+	lessonType.GET("", lessonTypeController.GetListLessonType)
+	lessonType.PUT("/:id", lessonTypeController.UpdateLessonType)
+	lessonType.DELETE("/:id", lessonTypeController.DeleteLessonTypeByID)
+
+	// lesson group
+	lessonGroup := e.Group("v1/lesson-group")
+	lessonGroup.POST("", lessonGroupController.InsertLessonGroup)
 
 }

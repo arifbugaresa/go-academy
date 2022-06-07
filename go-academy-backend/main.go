@@ -5,13 +5,16 @@ import (
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/gommon/log"
 	"go-academy/api/v1"
+	lessonGroupContr "go-academy/api/v1/lesson_group"
 	lessonTypeContr "go-academy/api/v1/lesson_type"
 	"go-academy/business/lesson"
 	"go-academy/business/lesson_group"
+	lessonGroupServ "go-academy/business/lesson_group"
 	lessonType "go-academy/business/lesson_type"
 	lessonTypeServ "go-academy/business/lesson_type"
 	configuration "go-academy/config"
 	"go-academy/modules/database"
+	lessonGroupRepo "go-academy/modules/lesson_group"
 	lessonTypeRepo "go-academy/modules/lesson_type"
 	"strconv"
 )
@@ -26,6 +29,10 @@ var (
 	lessonTypeRepository = lessonTypeRepo.NewRepository(dbGormPostgres)
 	lessonTypeService    = lessonTypeServ.NewService(lessonTypeRepository)
 	lessonTypeController = lessonTypeContr.NewController(lessonTypeService)
+
+	lessonGroupRepository = lessonGroupRepo.NewRepository(dbGormPostgres)
+	lessonGroupService    = lessonGroupServ.NewService(lessonGroupRepository)
+	lessonGroupController = lessonGroupContr.NewController(lessonGroupService)
 )
 
 func main() {
@@ -33,7 +40,7 @@ func main() {
 
 	migrateDatabase()
 
-	api.Controller(e, lessonTypeController)
+	api.Controller(e, lessonTypeController, lessonGroupController)
 
 	runServer()
 }
