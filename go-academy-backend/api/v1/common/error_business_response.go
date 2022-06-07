@@ -57,7 +57,7 @@ func newHasBeedModifiedResponse() (int, BusinessResponse) {
 func newNotFoundResponse() (int, BusinessResponse) {
 	return http.StatusNotFound, BusinessResponse{
 		errNotFound,
-		"Data Not found",
+		"data tidak ditemukan",
 		map[string]interface{}{},
 	}
 }

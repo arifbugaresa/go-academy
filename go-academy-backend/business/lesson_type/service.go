@@ -4,6 +4,7 @@ import (
 	"go-academy/api/v1/request"
 	"go-academy/api/v1/response"
 	"go-academy/business"
+	"time"
 )
 
 type service struct {
@@ -81,13 +82,9 @@ UPDATE LESSON TYPE
 func (s *service) UpdateLessonType(request request.UpdateLessonType) (err error) {
 
 	// find data by id
-	lessonTypeOnDB, err := s.FindLessonTypeByID(request.ID)
+	_, err = s.FindLessonTypeByID(request.ID)
 	if err != nil {
-		return business.ErrInvalidBody
-	}
-
-	if lessonTypeOnDB.ID < 1 {
-		return business.ErrDataNotFound
+		return
 	}
 
 	lessonTypeModel := s.convertDTOToModelForUpdate(request)
@@ -97,11 +94,12 @@ func (s *service) UpdateLessonType(request request.UpdateLessonType) (err error)
 
 func (s *service) convertDTOToModelForUpdate(request request.UpdateLessonType) (lessonType LessonType) {
 	return LessonType{
-		ID:        request.ID,
-		Name:      request.Name,
-		Desc:      request.Desc,
-		CreatedBy: "",
-		UpdatedBy: "",
+		ID:           request.ID,
+		Name:         request.Name,
+		Desc:         request.Desc,
+		LastAccessed: time.Now(),
+		CreatedBy:    "",
+		UpdatedBy:    "",
 	}
 }
 
@@ -110,5 +108,31 @@ FIND LESSON TYPE BY ID
 */
 
 func (s *service) FindLessonTypeByID(id int) (LessonType, error) {
-	return s.repository.FindLessonTypeByID(id)
+
+	// find data by id
+	lessonTypeOnDB, err := s.repository.FindLessonTypeByID(id)
+	if err != nil {
+		return LessonType{}, business.ErrInvalidBody
+	}
+
+	if lessonTypeOnDB.ID < 1 {
+		return LessonType{}, business.ErrDataNotFound
+	}
+
+	return lessonTypeOnDB, nil
+}
+
+/*
+DELETE LESSON TYPE BY ID
+*/
+
+func (s *service) DeleteLessonType(id int) (err error) {
+
+	// find data by id
+	_, err = s.FindLessonTypeByID(id)
+	if err != nil {
+		return
+	}
+
+	return s.repository.DeleteLessonTypeByID(id)
 }

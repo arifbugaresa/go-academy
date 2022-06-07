@@ -9,6 +9,7 @@ type Service interface {
 	InsertLessonType(request.InsertLessonType) error
 	GetListLessonType() ([]response.GetListLessonType, error)
 	UpdateLessonType(request.UpdateLessonType) error
+	DeleteLessonType(id int) (err error)
 }
 
 type Repository interface {
@@ -16,4 +17,5 @@ type Repository interface {
 	GetListLessonType() ([]LessonType, error)
 	UpdateLessonType(LessonType) error
 	FindLessonTypeByID(int) (LessonType, error)
+	DeleteLessonTypeByID(int) error
 }

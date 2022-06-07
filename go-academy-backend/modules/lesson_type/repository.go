@@ -21,7 +21,7 @@ func (r *repository) InsertLessonType(lessonType lesson_type.LessonType) error {
 
 func (r *repository) GetListLessonType() ([]lesson_type.LessonType, error) {
 	var listLessonType []lesson_type.LessonType
-	err := r.db.Find(&listLessonType).Error
+	err := r.db.Order("last_accessed desc").Find(&listLessonType).Error
 
 	return listLessonType, err
 }
@@ -43,4 +43,8 @@ func (r *repository) FindLessonTypeByID(id int) (lesson_type.LessonType, error) 
 	err := r.db.Find(&lessonType, id).Error
 
 	return lessonType, err
+}
+
+func (r *repository) DeleteLessonTypeByID(id int) error {
+	return r.db.Delete(&lesson_type.LessonType{}, id).Error
 }

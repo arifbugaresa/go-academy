@@ -20,5 +20,6 @@ func Controller(
 	lessonType.POST("", lessonTypeControler.InsertLessonType)
 	lessonType.GET("", lessonTypeControler.GetListLessonType)
 	lessonType.PUT("/:id", lessonTypeControler.UpdateLessonType)
+	lessonType.DELETE("/:id", lessonTypeControler.DeleteLessonTypeByID)
 
 }

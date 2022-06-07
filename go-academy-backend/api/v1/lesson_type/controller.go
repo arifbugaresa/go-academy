@@ -75,3 +75,18 @@ func (controller *Controller) UpdateLessonType(context echo.Context) error {
 
 	return context.JSON(common.NewSuccessResponseWithoutData(common.SUCCESS_UPDATE_DATA))
 }
+
+func (controller *Controller) DeleteLessonTypeByID(context echo.Context) error {
+	// mengambil id dari url param
+	id, err := strconv.Atoi(context.Param("id"))
+	if err != nil {
+		return err
+	}
+
+	err = controller.service.DeleteLessonType(id)
+	if err != nil {
+		return context.JSON(common.NewErrorBusinessResponse(err))
+	}
+
+	return context.JSON(common.NewSuccessResponseWithoutData(common.SUCCESS_DELETE_DATA))
+}
