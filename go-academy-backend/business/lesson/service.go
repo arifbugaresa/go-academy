@@ -105,6 +105,7 @@ func (s *service) convertModelTODTOForGetList(listLessonOnDB []Lesson) (res []re
 /*
 FIND BY ID FOR SEARCH
 */
+
 func (s *service) FindLessonByID(id string) (lessonOnDB Lesson, err error) {
 	lessonOnDB, err = s.repository.FindLessonByID(id)
 	if err != nil {

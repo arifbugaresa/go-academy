@@ -11,6 +11,7 @@ var (
 	ErrGetDataFromDB = errors.New("error get data from db")
 	ErrDataNotFound  = errors.New("error data not found")
 	ErrInsertData    = errors.New("error insert data")
+	ErrDeleteData    = errors.New("error delete data")
 )
 
 func GenerateErrDataNotFound(funcName string, business string, tableName string, data int) error {

@@ -18,5 +18,6 @@ type Repository interface {
 	FindLessonTypeByID(id int) (lessonType lesson_type.LessonType, err error)
 	FindAllLessonGroup() (listLessonGroup []LessonGroup, err error)
 	FindLessonGroupByID(id string) (lessonGroupo LessonGroup, err error)
-	DeleteLessonByID(id string) (err error)
+	DeleteLessonGroupByID(id string) (err error)
+	DeleteLessonByLessonID(id string) (err error)
 }

@@ -122,5 +122,16 @@ func (s *service) DeleteLessonGroupByID(id string) (err error) {
 		return
 	}
 
-	return s.repository.DeleteLessonByID(strconv.Itoa(lessonGroupOnDB.ID))
+	// delete data and delete data relation of any table
+	err = s.repository.DeleteLessonGroupByID(strconv.Itoa(lessonGroupOnDB.ID))
+	if err != nil {
+		return business.ErrDeleteData
+	}
+
+	err =  s.repository.DeleteLessonByLessonID(strconv.Itoa(lessonGroupOnDB.ID))
+	if err != nil {
+		return business.ErrDeleteData
+	}
+
+	return
 }

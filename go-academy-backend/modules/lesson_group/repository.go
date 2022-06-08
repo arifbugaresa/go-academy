@@ -1,6 +1,7 @@
 package lesson_group
 
 import (
+	"go-academy/business/lesson"
 	"go-academy/business/lesson_group"
 	"go-academy/business/lesson_type"
 	"gorm.io/gorm"
@@ -36,8 +37,12 @@ func (r *repository) FindAllLessonGroup() (listLessonGroup []lesson_group.Lesson
 	return listLessonGroupDB, err
 }
 
-func (r *repository) DeleteLessonByID(id string) (err error) {
-	return r.db.Delete(lesson_group.LessonGroup{}, id).Error
+func (r *repository) DeleteLessonGroupByID(id string) (err error) {
+	return r.db.Delete(&lesson_group.LessonGroup{}, id).Error
+}
+
+func (r *repository) DeleteLessonByLessonID(id string) (err error) {
+	return r.db.Where("lesson_group_id = ?", id).Delete(&lesson.Lesson{}).Error
 }
 
 func (r *repository) FindLessonGroupByID(id string) (res lesson_group.LessonGroup, err error) {
