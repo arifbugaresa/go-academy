@@ -4,6 +4,7 @@ import (
 	"go-academy/api/v1/request"
 	"go-academy/api/v1/response"
 	"go-academy/business"
+	"strconv"
 )
 
 type service struct {
@@ -93,4 +94,33 @@ func (s *service) convertModelTODTOForGetList(listLessonGroupOnDB []LessonGroup)
 	}
 
 	return
+}
+
+/*
+FIND BY ID FOR SEARCH
+ */
+func (s *service) FindLessonGroupByID(id string) (lessonGroupOnDB LessonGroup, err error) {
+	lessonGroupOnDB, err = s.repository.FindLessonGroupByID(id)
+	if err != nil {
+		return lessonGroupOnDB, business.ErrGetDataFromDB
+	}
+
+	if lessonGroupOnDB.ID < 1 {
+		return lessonGroupOnDB, business.ErrDataNotFound
+	}
+
+	return
+}
+
+/*
+DELETE LESSON GROUP
+*/
+
+func (s *service) DeleteLessonGroupByID(id string) (err error) {
+	lessonGroupOnDB, err := s.FindLessonGroupByID(id)
+	if err != nil {
+		return
+	}
+
+	return s.repository.DeleteLessonByID(strconv.Itoa(lessonGroupOnDB.ID))
 }

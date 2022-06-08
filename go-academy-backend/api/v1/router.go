@@ -28,5 +28,6 @@ func Controller(
 	lessonGroup := e.Group("v1/lesson-group")
 	lessonGroup.POST("", lessonGroupController.InsertLessonGroup)
 	lessonGroup.GET("", lessonGroupController.FindAllLessonGroup)
+	lessonGroup.DELETE("/:id", lessonGroupController.DeleteLessonGroupByID)
 
 }

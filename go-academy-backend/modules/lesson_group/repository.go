@@ -35,3 +35,13 @@ func (r *repository) FindAllLessonGroup() (listLessonGroup []lesson_group.Lesson
 
 	return listLessonGroupDB, err
 }
+
+func (r *repository) DeleteLessonByID(id string) (err error) {
+	return r.db.Delete(lesson_group.LessonGroup{}, id).Error
+}
+
+func (r *repository) FindLessonGroupByID(id string) (res lesson_group.LessonGroup, err error) {
+	var lessonGroup lesson_group.LessonGroup
+	err = r.db.Find(&lessonGroup, id).Error
+	return lessonGroup, err
+}

@@ -9,10 +9,14 @@ import (
 type Service interface {
 	InsertLessonGroup(request request.InsertMultipleLessonGroup) (err error)
 	FindAllLessonGroup() (response []response.GetListLessonGroup, err error)
+	FindLessonGroupByID(id string) (response LessonGroup, err error)
+	DeleteLessonGroupByID(id string) (err error)
 }
 
 type Repository interface {
 	InsertLessonGroup(lessonGroup LessonGroup) error
 	FindLessonTypeByID(id int) (lessonType lesson_type.LessonType, err error)
 	FindAllLessonGroup() (listLessonGroup []LessonGroup, err error)
+	FindLessonGroupByID(id string) (lessonGroupo LessonGroup, err error)
+	DeleteLessonByID(id string) (err error)
 }
