@@ -3,6 +3,7 @@ package lesson
 import (
 	"go-academy/api/v1/common"
 	"go-academy/api/v1/request"
+	"go-academy/api/v1/response"
 	"go-academy/business"
 )
 
@@ -60,6 +61,40 @@ func (s *service) convertDTOTOModelForMultipleInsert(dto request.InsertMultipleL
 		}
 
 		listLesson = append(listLesson, lessonGroup)
+	}
+
+	return
+}
+
+/*
+GET LIST ALL LESSON
+*/
+
+func (s *service) FindAllLesson() (response []response.GetListLesson, err error) {
+	listLessonOnDB, err := s.repository.FindAllLesson()
+	if err != nil {
+		return response, business.ErrGetDataFromDB
+	}
+
+	response = s.convertModelTODTOForGetList(listLessonOnDB)
+
+	return
+}
+
+func (s *service) convertModelTODTOForGetList(listLessonOnDB []Lesson) (res []response.GetListLesson) {
+	for _, data := range listLessonOnDB {
+		lesson := response.GetListLesson{
+			Name:          data.Name,
+			Desc:          data.Desc,
+			Url:           data.Url,
+			Status:        data.Status,
+			Priority:      data.Priority,
+			LessonGroupID: data.LessonGroupID,
+			CreatedAt:     data.CreatedAt,
+			UpdatedAt:     data.UpdatedAt,
+		}
+
+		res = append(res, lesson)
 	}
 
 	return

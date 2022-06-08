@@ -26,3 +26,10 @@ func (r *repository) FindLessonGroupByID(id int) (lessonGroup lesson_group.Lesso
 
 	return
 }
+
+func (r *repository) FindAllLesson() (listLesson []lesson.Lesson, err error) {
+
+	err = r.db.Find(&listLesson).Error
+
+	return
+}

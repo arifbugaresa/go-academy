@@ -35,3 +35,12 @@ func (controller *Controller) InsertLesson(context echo.Context) error {
 
 	return context.JSON(common.NewSuccessResponseWithoutData(common.SUCCESS_INSERT_DATA))
 }
+
+func (controller *Controller) FindAllLesson(context echo.Context) (err error) {
+	listLesson, err := controller.service.FindAllLesson()
+	if err != nil {
+		return context.JSON(common.NewErrorBusinessResponse(err))
+	}
+
+	return context.JSON(common.NewSuccessResponse(common.SUCCESS_GET_LIST_DATA, listLesson))
+}

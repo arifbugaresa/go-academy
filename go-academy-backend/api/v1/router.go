@@ -35,5 +35,6 @@ func Controller(
 	// lesson
 	lesson := e.Group("v1/lesson")
 	lesson.POST("", lessonController.InsertLesson)
+	lesson.GET("", lessonController.FindAllLesson)
 
 }
