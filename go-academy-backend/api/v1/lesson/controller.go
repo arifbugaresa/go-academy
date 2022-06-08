@@ -44,3 +44,15 @@ func (controller *Controller) FindAllLesson(context echo.Context) (err error) {
 
 	return context.JSON(common.NewSuccessResponse(common.SUCCESS_GET_LIST_DATA, listLesson))
 }
+
+func (controller *Controller) DeleteLessonByID(context echo.Context) (err error) {
+	// mengambil id dari url param
+	id := context.Param("id")
+
+	err = controller.service.DeleteLessonByID(id)
+	if err != nil {
+		return context.JSON(common.NewErrorBusinessResponse(err))
+	}
+
+	return context.JSON(common.NewSuccessResponseWithoutData(common.SUCCESS_DELETE_DATA))
+}

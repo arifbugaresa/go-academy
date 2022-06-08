@@ -36,5 +36,6 @@ func Controller(
 	lesson := e.Group("v1/lesson")
 	lesson.POST("", lessonController.InsertLesson)
 	lesson.GET("", lessonController.FindAllLesson)
+	lesson.DELETE("/:id", lessonController.DeleteLessonByID)
 
 }
