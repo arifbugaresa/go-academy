@@ -27,3 +27,11 @@ func (r *repository) FindLessonTypeByID(id int) (lesson_type.LessonType, error) 
 
 	return lessonType, err
 }
+
+func (r *repository) FindAllLessonGroup() (listLessonGroup []lesson_group.LessonGroup, err error) {
+	var listLessonGroupDB []lesson_group.LessonGroup
+
+	err = r.db.Find(&listLessonGroupDB).Error
+
+	return listLessonGroupDB, err
+}

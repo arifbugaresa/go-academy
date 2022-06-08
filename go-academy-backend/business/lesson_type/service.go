@@ -52,7 +52,7 @@ GET LIST LESSON TYPE
 func (s *service) GetListLessonType() (listLessonType []response.GetListLessonType, err error) {
 	listLessonTypeDB, err := s.repository.GetListLessonType()
 	if err != nil {
-		return
+		return listLessonType, business.ErrGetDataFromDB
 	}
 
 	listLessonType = s.convertModelToDTOForGetList(listLessonTypeDB)

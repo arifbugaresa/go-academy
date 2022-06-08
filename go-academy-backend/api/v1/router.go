@@ -27,5 +27,6 @@ func Controller(
 	// lesson group
 	lessonGroup := e.Group("v1/lesson-group")
 	lessonGroup.POST("", lessonGroupController.InsertLessonGroup)
+	lessonGroup.GET("", lessonGroupController.FindAllLessonGroup)
 
 }
