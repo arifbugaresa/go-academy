@@ -5,15 +5,15 @@ import (
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/gommon/log"
 	"go-academy/api/v1"
+	lessonContr "go-academy/api/v1/lesson"
 	lessonGroupContr "go-academy/api/v1/lesson_group"
 	lessonTypeContr "go-academy/api/v1/lesson_type"
-	"go-academy/business/lesson"
-	"go-academy/business/lesson_group"
+	lessonServ "go-academy/business/lesson"
 	lessonGroupServ "go-academy/business/lesson_group"
-	lessonType "go-academy/business/lesson_type"
 	lessonTypeServ "go-academy/business/lesson_type"
 	configuration "go-academy/config"
 	"go-academy/modules/database"
+	lessonRepo "go-academy/modules/lesson"
 	lessonGroupRepo "go-academy/modules/lesson_group"
 	lessonTypeRepo "go-academy/modules/lesson_type"
 	"strconv"
@@ -33,6 +33,10 @@ var (
 	lessonGroupRepository = lessonGroupRepo.NewRepository(dbGormPostgres)
 	lessonGroupService    = lessonGroupServ.NewService(lessonGroupRepository)
 	lessonGroupController = lessonGroupContr.NewController(lessonGroupService)
+
+	lessonRepository = lessonRepo.NewRepository(dbGormPostgres)
+	lessonService    = lessonServ.NewService(lessonRepository)
+	lessonController = lessonContr.NewController(lessonService)
 )
 
 func main() {
@@ -40,16 +44,16 @@ func main() {
 
 	migrateDatabase()
 
-	api.Controller(e, lessonTypeController, lessonGroupController)
+	api.Controller(e, lessonTypeController, lessonGroupController, lessonController)
 
 	runServer()
 }
 
 func migrateDatabase() {
 	dbGormPostgres.AutoMigrate(
-		&lesson.Lesson{},
-		&lessonType.LessonType{},
-		&lesson_group.LessonGroup{},
+		&lessonServ.Lesson{},
+		&lessonTypeServ.LessonType{},
+		&lessonGroupServ.LessonGroup{},
 	)
 
 	log.Info("Success migrate database, " + strconv.Itoa(int(dbGormPostgres.RowsAffected)) + " row affected.")
